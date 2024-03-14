@@ -2,12 +2,14 @@ import express from 'express';
 import mongoose  from 'mongoose';
 import dotenv from 'dotenv';
 import authRouter from './routes/auth.routes.js';
+import messageRoutes from "./routes/message.routes.js";
+import cookieParser from 'cookie-parser';
+import userRoutes from './routes/user.routes.js'
+
 
 dotenv.config();
 
-const MONGO="mongodb+srv://rahulmandalzzz123:rahulmandal@chat-app.sv2giy6.mongodb.net/?retryWrites=true&w=majority&appName=chat-app"
-
-mongoose.connect(MONGO).then(()=>{
+mongoose.connect(process.env.MONGO).then(()=>{
     console.log("connected to mongodb");
 }).catch((err)=>{
     console.log(err);
@@ -17,9 +19,13 @@ mongoose.connect(MONGO).then(()=>{
 const app = express()
 const port = 3000
 app.use(express.json());
+app.use(cookieParser());
+
 
 
 app.use('/api/auth', authRouter);
+app.use("/api/messages", messageRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
