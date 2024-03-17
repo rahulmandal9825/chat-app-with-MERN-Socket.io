@@ -1,20 +1,25 @@
-import React from 'react'
-import Conversionitem from './Conversionitem'
+import useGetConversations from '../hooks/useGetConversation';
+import {getRandomEmoji} from '../utils/emojis'
+import Conversionitem from '../pages/Conversionitem'
 
 function Conversion() {
-  return (
-    <div className='px-2 flex-1 overflow-auto'>
-    <Conversionitem/>
-    <Conversionitem/>
-    <Conversionitem/>
-    <Conversionitem/>
-    <Conversionitem/>
-    <Conversionitem/>
-    <Conversionitem/>
-    <Conversionitem/>
-    <Conversionitem/>
-    </div>
-  )
+	const { loading, conversations } = useGetConversations();
+
+	return (
+		<div className='py-2 flex flex-col overflow-auto'>
+			{conversations.map((conversation) => (
+				<Conversionitem
+					key={conversation._id}
+					conversation={conversation}
+					emoji={getRandomEmoji()}
+					
+				/>
+			))}
+
+			{loading ? <span className='loading loading-spinner mx-auto'></span> : null}
+		</div>
+	);
 }
+
 
 export default Conversion

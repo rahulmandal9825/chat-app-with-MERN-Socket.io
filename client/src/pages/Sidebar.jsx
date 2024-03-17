@@ -1,13 +1,35 @@
-import { Link } from "react-router-dom"
 import Conversion from "./Conversion"
+import { useState } from "react"
+import useConversation from "../zustand/useConversation";
+import useGetConversations from "../hooks/useGetConversation";
+import toast from "react-hot-toast";
 
 
 function Sidebar() {
+  const [search , setSearch] = useState("");
+  const { setSelectedConversation }= useConversation();
+  const { conversations }= useGetConversations();
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    if (!search) return;
+     if(search.length < 3 ){
+      return toast.error("esarch term must be atlest 3 characters long");
+    }
+    const conversation = conversations.find((c)=> c.fullname.toLowerCase().includes(search.toLowerCase()));
+      console.log(conversation);
+    if (conversation) {
+      setSelectedConversation(conversation);
+      setSearch("");
+    }else toast.error("no such User fond");
+  };
+
   return (
-    <div className="flex flex-col ">
+    <form onSubmit={handleSubmit} className="flex flex-col ">
         <div className=" m-5 rounded-2xl flex justify-evenly bg-gray-600  ">
- <input type="text" placeholder=" Sarech for friend"  className=" rounded-xl   text-white bg-gray-600 placeholder:text-gray-300 p-4  focus:outline-none  " />
- <i className=" cursor-pointer bg-transparent text-white text-2xl self-center fa-solid fa-magnifying-glass"></i>
+ <input type="text" placeholder=" Sarech...." onChange={(e)=>{setSearch(e.target.value)}} value={search} className=" rounded-xl   text-white bg-gray-600 placeholder:text-gray-300 p-4  focus:outline-none  " />
+ <button type="submit"><i className=" cursor-pointer bg-transparent text-white text-2xl self-center fa-solid fa-magnifying-glass"></i></button>
+ 
 
         </div>
         <div className="text-white px-5 p-2 text-2xl">
@@ -19,7 +41,7 @@ function Sidebar() {
         </div>
      
 
-    </div>
+    </form>
   )
 }
 
