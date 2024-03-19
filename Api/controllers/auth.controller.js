@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
-import generateTokenAndSetCookie from "../utils/generateToken,js";
+import generateTokenAndSetCookie from "../utils/generateToken.js";
 import { errorHandler } from "../utils/error.js";
 
 

@@ -3,12 +3,14 @@ import Messageitem from "./Messageitem"
 import useConversation from "../zustand/useConversation";
 import { useState } from "react";
 import useSendMessage from "../hooks/useSendmessage";
+import { useAuthContext } from "../context/AuthContext";
 
 
 function Message() {
-  const {selectedConversation , setSelectedConversation ,Send} =useConversation();
+  const {selectedConversation , setSelectedConversation } =useConversation();
   const{loading, sendMessage} = useSendMessage();
   const [message,setMessage] = useState("");
+  const {setShowmsg } = useAuthContext();
 
   const handdlesubmint = async  (e) => {
     e.preventDefault();
@@ -30,9 +32,9 @@ function Message() {
          <h1 className=" p-3 text-2xl font-semibold text-white ">{selectedConversation.fullname}</h1>
             </div>
         
-         <Link to={"/"} className="  self-center">
-            <i className="flex-1  fa-solid fa-arrow-left  text-white self-center text-right px-3 text-2xl"></i>
-         </Link>
+         <div onClick={()=>{setShowmsg(false)}} className=" cursor-pointer self-center">
+            <i  className="flex-1  fa-solid fa-arrow-left  text-white self-center text-right px-3 text-2xl"></i>
+         </div>
         </div>
         <div className="h-[466px]  overflow-auto"> 
             <Messageitem/>

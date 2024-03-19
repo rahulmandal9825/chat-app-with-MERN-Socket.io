@@ -5,7 +5,7 @@ import authRouter from './routes/auth.routes.js';
 import messageRoutes from "./routes/message.routes.js";
 import cookieParser from 'cookie-parser';
 import userRoutes from './routes/user.routes.js'
-
+import { app, server } from "./socket/socket.js";
 
 dotenv.config();
 
@@ -16,8 +16,8 @@ mongoose.connect(process.env.MONGO).then(()=>{
     console.log("not connected to db ");
 });
 
-const app = express()
-const port = 3000
+
+const port = 5000
 app.use(express.json());
 app.use(cookieParser());
 
@@ -27,7 +27,7 @@ app.use('/api/auth', authRouter);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 

@@ -11,6 +11,6 @@ export const useAuthContext =() =>{
 export const AuthContextProvider = ({children}) =>{
     // Parse localStorage and handle potential errors
     const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem("Current-User")) || null);
-
-	return <AuthContext.Provider value={{ authUser, setAuthUser }}>{children}</AuthContext.Provider>;
+    const [showmsg , setShowmsg] = useState(false);
+	return <AuthContext.Provider value={{ authUser, setAuthUser,showmsg , setShowmsg }}>{children}</AuthContext.Provider>;
 };

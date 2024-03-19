@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useAuthContext } from "../context/AuthContext";
 import useConversation from "../zustand/useConversation";
 import Message from "./Message"
 import NochatSelected from "./NochatSelected";
@@ -6,15 +8,31 @@ import { motion } from "framer-motion";
 
 function Home() {
   const {selectedConversation , setSelectedConversation} =useConversation();
+
+  const { showmsg ,setShowmsg } = useAuthContext();
+  const showm = showmsg ? "" : "hidden";
+  const showcon = showmsg ? "hidden" : "";
+
+ useEffect(() => {
+   if (selectedConversation) {
+    setShowmsg(true)
+   }
+
+ }, [selectedConversation])
+ 
+
+
+
+
     
 
   return (
     <div className="flex flex-col md:flex-row">
-        <motion.div  animate={{x:0}} initial={{x:-100}} transition={{ duration:.5 }} className="min-w-[30%] ">
+        <motion.div  animate={{x:0}} initial={{x:-100}} transition={{ duration:.5 }} className={`min-w-[30%] ${showcon} `}>
             <Sidebar/>
    
         </motion.div>
-        <motion.div animate={{x:0}} initial={{x:+100}} transition={{ duration:.5 }} className="hidden w-[70%] md:flex">
+        <motion.div animate={{x:0}} initial={{x:+100}} transition={{ duration:.5 }} className={` w-full md:w-[70%]  ${showm} `}>
             {selectedConversation ? (<Message/>)
         :(<NochatSelected/>) }
         </motion.div>
