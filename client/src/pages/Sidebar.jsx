@@ -25,7 +25,7 @@ function Sidebar() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col ">
+    <form onSubmit={handleSubmit} className="flex flex-col w-full ">
         <div className=" m-5 rounded-2xl flex justify-evenly bg-gray-600  ">
  <input type="text" placeholder=" Sarech...." onChange={(e)=>{setSearch(e.target.value)}} value={search} className=" rounded-xl   text-white bg-gray-600 placeholder:text-gray-300 p-4  focus:outline-none  " />
  <button type="submit"><i className=" cursor-pointer bg-transparent text-white text-2xl self-center fa-solid fa-magnifying-glass"></i></button>

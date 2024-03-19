@@ -28,11 +28,11 @@ function Home() {
 
   return (
     <div className="flex flex-col md:flex-row">
-        <motion.div  animate={{x:0}} initial={{x:-100}} transition={{ duration:.5 }} className={`min-w-[30%] ${showcon} `}>
+        <motion.div  animate={{x:0}} initial={{x:-100}} transition={{ duration:.5 }} className={`min-w-[30%] md:flex  ${showcon} `}>
             <Sidebar/>
    
         </motion.div>
-        <motion.div animate={{x:0}} initial={{x:+100}} transition={{ duration:.5 }} className={` w-full md:w-[70%]  ${showm} `}>
+        <motion.div animate={{x:0}} initial={{x:+100}} transition={{ duration:.5 }} className={` w-full md:flex  md:w-[70%]  ${showm} `}>
             {selectedConversation ? (<Message/>)
         :(<NochatSelected/>) }
         </motion.div>
